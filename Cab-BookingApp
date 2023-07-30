@@ -1,0 +1,335 @@
+class VehicleQueue:
+    vehicles = []
+
+    def __init__(self):
+        self.vehicles = []
+
+    def isEmpty(self):
+        return self.vehicles == []
+
+    def enqueue(self, vehicle):
+        self.vehicles.insert(0, vehicle)
+
+    def dequeue(self):
+        return self.vehicles.pop()
+
+    def findVehicle(self, regNo):
+        for vehicle in self:
+            if vehicle.regNo == regNo:
+                return vehicle
+        return -1
+
+    def printQueue(self):
+        for vehicle in self:
+            print(vehicle.vehicleName)
+            print(vehicle.regNo)
+            print(vehicle.vehicleType)
+            print("\n")
+
+
+# To store vehicle details. objects from these must be pushed to the relevant queues in driver
+class VehicleDetails:
+    vehicleName = ""
+    regNo = ""
+    vehicleType = ""  # Type must be car,van,threewheel,truck and lorry
+
+    def __init__(self, name, regNo, vType):
+        self.vehicleName = name
+        self.regNo = regNo
+        self.vehicleType = vType
+
+
+def initLoader(carQueue, vanQueue, threeWheelQueue, truckQueue, lorryQueue):
+    # Make objects for inital queues.
+    car1 = VehicleDetails("Mazda RX-8", "NC-4564", "car")
+    car2 = VehicleDetails("Toyota Supra", "VT-4384", "car")
+    car3 = VehicleDetails("Honda Civic", "OC-2591", "car")
+
+    VehicleQueue.enqueue(carQueue, car1)
+    VehicleQueue.enqueue(carQueue, car2)
+    VehicleQueue.enqueue(carQueue, car3)
+
+    van1 = VehicleDetails("Caravan", "TY-5682", "van")
+    van2 = VehicleDetails("KDH", "BN-1748", "van")
+    van3 = VehicleDetails("Caravan", "RC-7950", "van")
+
+    VehicleQueue.enqueue(vanQueue, van1)
+    VehicleQueue.enqueue(vanQueue, van2)
+    VehicleQueue.enqueue(vanQueue, van3)
+
+    tuktuk1 = VehicleDetails("Bajaj RE", "201-5687", "threewheel")
+    tuktuk2 = VehicleDetails("Bajaj RE", "FG-7823", "threewheel")
+    tuktuk3 = VehicleDetails("Bajaj RE", "EK-1298", "threewheel")
+
+    VehicleQueue.enqueue(threeWheelQueue, tuktuk1)
+    VehicleQueue.enqueue(threeWheelQueue, tuktuk2)
+    VehicleQueue.enqueue(threeWheelQueue, tuktuk3)
+
+    truck1 = VehicleDetails("Volvo", "EJK-5692", "truck")
+    truck2 = VehicleDetails("Scania", "EJK-5692", "truck")
+    truck3 = VehicleDetails("Peterbilt 379", "EQ-6043", "truck")
+
+    VehicleQueue.enqueue(truckQueue, truck1)
+    VehicleQueue.enqueue(truckQueue, truck2)
+    VehicleQueue.enqueue(truckQueue, truck3)
+
+    lorry1 = VehicleDetails("Fiat Toro", "TFH-5692", "lorry")
+    lorry2 = VehicleDetails("Ford Maverick", "EOU-5690", "lorry")
+    lorry3 = VehicleDetails("Ford F-150", "QH-1254", "lorry")
+
+    VehicleQueue.enqueue(lorryQueue, lorry1)
+    VehicleQueue.enqueue(lorryQueue, lorry2)
+    VehicleQueue.enqueue(lorryQueue, lorry3)
+
+
+def userLogin():
+    print("Please enter user type:\n1. Admin\n2.User\n")
+    userType = int(input("Enter 1 or 2: "))
+    if userType > 2 and userType < 1:
+        print("Enter proper selection!")
+        userLogin()
+    else:
+        if userType == 1:
+            showAdminMenu()
+        else:
+            showUserMenu()
+
+
+def showAdminMenu():
+    print("Main menu\n=========\n")
+    print("Select the operation:")
+    print("1. Add a new vehicle to the system")
+    print("2. Remove a vehicle from the system")
+    print("3. See available vehicles in each category")
+    print("4. Exit")
+
+    menuSelection = int(input("Enter Choice: "))
+
+    if (menuSelection > 4 and menuSelection < 1):
+        print("Please Enter Proper Menu No.")
+        showAdminMenu()
+    else:
+        if menuSelection == 1:
+            addNewVehicle()
+        elif menuSelection == 2:
+            removeVehicle()
+        elif menuSelection == 3:
+            printAllVehicles(True)
+        elif menuSelection == 4:
+            userLogin()
+
+
+def addNewVehicle():
+    vehicleName = str(input("Enter Vehicle Name: "))
+    vehicleType = str(input("Enter Vehicle Type: "))
+    regNo = str(input("Enter Vehicle Registration Number: "))
+
+    if vehicleName != "" or regNo != "" or vehicleType != "":
+        if vehicleType == "car" or vehicleType == "van" or vehicleType == "threewheel" or vehicleType == "truck" or vehicleType == "lorry":
+            newVehicle = VehicleDetails(vehicleName, regNo, vehicleType)
+
+            if vehicleType == "car":
+                VehicleQueue.enqueue(carQueue, newVehicle)
+            elif vehicleType == "van":
+                VehicleQueue.enqueue(vanQueue, newVehicle)
+            elif vehicleType == "threewheel":
+                VehicleQueue.enqueue(threeWheelQueue, newVehicle)
+            elif vehicleType == "truck":
+                VehicleQueue.enqueue(truckQueue, newVehicle)
+            elif vehicleType == "lorry":
+                VehicleQueue.enqueue(lorryQueue, newVehicle)
+            print("Vehicle Added Successfully.")
+            showAdminMenu()
+        else:
+            print("Enter Valid Details!")
+            showAdminMenu()
+    else:
+        print("Enter Valid Details!")
+        showAdminMenu()
+
+
+def removeVehicle():
+    print("Remove Vehicle")
+    vType = str(input("Enter vehicle type: "))
+    vRegNo = str(input("Enter vehicle registration No: "))
+    if vType == "car" or vType == "van" or vType == "threewheel" or vType == "truck" or vType == "lorry":
+        if vType == "car":
+            car = VehicleQueue.findVehicle(carQueue, vRegNo)
+            if car != -1:
+                VehicleQueue.dequeue(carQueue, car)
+                print("Vehicle Removed Successfully.")
+                showAdminMenu()
+            else:
+                print("No Vehicle Found.")
+                showAdminMenu()
+        elif vType == "van":
+            van = VehicleQueue.findVehicle(vanQueue, vRegNo)
+            if van != -1:
+                VehicleQueue.dequeue(vanQueue, van)
+                print("Vehicle Removed Successfully.")
+                showAdminMenu()
+            else:
+                print("No Vehicle Found.")
+                showAdminMenu()
+        elif vType == "threewheel":
+            tuk = VehicleQueue.findVehicle(threeWheelQueue, vRegNo)
+            if tuk != -1:
+                VehicleQueue.dequeue(threeWheelQueue, tuk)
+                print("Vehicle Removed Successfully.")
+                showAdminMenu()
+            else:
+                print("No Vehicle Found.")
+                showAdminMenu()
+        elif vType == "truck":
+            truck = VehicleQueue.findVehicle(truckQueue, vRegNo)
+            if truck != -1:
+                VehicleQueue.dequeue(truckQueue, truck)
+                print("Vehicle Removed Successfully.")
+                showAdminMenu()
+            else:
+                print("No Vehicle Found.")
+                showAdminMenu()
+        elif vType == "lorry":
+            lorry = VehicleQueue.findVehicle(lorryQueue, vRegNo)
+            if lorry != -1:
+                VehicleQueue.dequeue(lorryQueue, lorry)
+                print("Vehicle Removed Successfully.")
+                showAdminMenu()
+            else:
+                print("No Vehicle Found.")
+                showAdminMenu()
+    else:
+        print("Please enter Proper Category.")
+        showAdminMenu()
+
+
+def printAllVehicles(isAdmin):
+    print("Available Cars:\n===========")
+    VehicleQueue.printQueue(carQueue.vehicles)
+    print("\n")
+
+    print("Available Vans:\n===========")
+    VehicleQueue.printQueue(vanQueue.vehicles)
+    print("\n")
+
+    print("Available Three Wheels:\n==================")
+    VehicleQueue.printQueue(threeWheelQueue.vehicles)
+    print("\n")
+
+    print("Available Trucks:\n===========")
+    VehicleQueue.printQueue(truckQueue.vehicles)
+    print("\n")
+
+    print("Available Lorries:\n===========")
+    VehicleQueue.printQueue(lorryQueue.vehicles)
+    print("\n")
+
+    print("Currentlt Hired Vehicles:\n===========")
+    VehicleQueue.printQueue(hiredQueue.vehicles)
+    print("\n")
+
+    if isAdmin:
+        showAdminMenu()
+    else:
+        showUserMenu()
+
+
+def showUserMenu():
+    print("1. Hire a vehicle.")
+    print("2. Release vehicle after completing.")
+    print("3. See available vehicles in each category")
+    print("4. Exit")
+
+    menuSelection = int(input("Enter Choice: "))
+
+    if (menuSelection > 4 and menuSelection < 1):
+        print("Please Enter Proper Menu No.")
+        showUserMenu()
+    else:
+        if menuSelection == 1:
+            hireVehicleMenu()
+        elif menuSelection == 2:
+            releaseVehicle()
+        elif menuSelection == 3:
+            printAllVehicles(False)
+        elif menuSelection == 4:
+            userLogin()
+
+
+def hireVehicleMenu():
+    print("Please enter the number of the vehicle you need:\n")
+    print("1. Car:\nmaximum number of passengers - 3 and 4\nAC/ Non AC\n")
+    print("2. Van:\nMaximum number of passengers - 6 and 8\nAC/ Non AC\n")
+    print("3. Three Wheelers:\nMaximum number of passengers - 3\nAC/ Non AC\n")
+    print("4. Trucks:\nSize - 7 ft and 12 ft\n")
+    print("5. Lorry:\nMax load and size - 2500kg and 3500kg\n")
+
+    selectedCategory = int(input("Enter Selection: "))
+
+    if selectedCategory > 5 or selectedCategory < 1:
+        print("Please Enter Correct Number!")
+        hireVehicleMenu()
+    else:
+        if selectedCategory == 1:
+            car = VehicleQueue.dequeue(carQueue)
+            VehicleQueue.enqueue(hiredQueue, car)
+            print(car.vehicleName, "is hired for you.")
+        elif selectedCategory == 2:
+            van = VehicleQueue.dequeue(vanQueue)
+            print(van.vehicleName, "is hired for you.")
+            VehicleQueue.enqueue(hiredQueue, van)
+        elif selectedCategory == 3:
+            tuktuk = VehicleQueue.dequeue(threeWheelQueue)
+            print(tuktuk.vehicleName, "is hired for you.")
+            VehicleQueue.enqueue(hiredQueue, tuktuk)
+        elif selectedCategory == 4:
+            truck = VehicleQueue.dequeue(truckQueue)
+            print(truck.vehicleName, "is hired for you.")
+            VehicleQueue.enqueue(hiredQueue, truck)
+        elif selectedCategory == 5:
+            lorry = VehicleQueue.dequeue(truckQueue)
+            print(lorry.vehicleName, "is hired for you.")
+            VehicleQueue.enqueue(hiredQueue, lorry)
+
+        showUserMenu()
+
+
+def releaseVehicle():
+    print("Release Vehicle after Completion:\n==============================")
+    vRegNo = str(input("Enter vehicle registration No: "))
+
+    vehicle = VehicleQueue.findVehicle(hiredQueue, vRegNo)
+
+    if vehicle != -1:
+        if vehicle.vehicleType == "car":
+            VehicleQueue.dequeue(carQueue, vehicle)
+        elif vehicle.vehicleType == "van":
+            VehicleQueue.dequeue(vanQueue, vehicle)
+        elif vehicle.vehicleType == "threewheel":
+            VehicleQueue.dequeue(threeWheelQueue, vehicle)
+        elif vehicle.vehicleType == "truck":
+            VehicleQueue.dequeue(truckQueue, vehicle)
+        elif vehicle.vehicleType == "lorry":
+            VehicleQueue.dequeue(lorryQueue, vehicle)
+
+        print("Vehicle Released Successfully")
+        showUserMenu()
+    else:
+        print("No Vehicle Matched Registration No.")
+        showUserMenu()
+
+
+# Running starts here
+carQueue = VehicleQueue()
+vanQueue = VehicleQueue()
+threeWheelQueue = VehicleQueue()
+truckQueue = VehicleQueue()
+lorryQueue = VehicleQueue()
+
+initLoader(carQueue, vanQueue, threeWheelQueue, truckQueue, lorryQueue)
+
+# For hired vehicles and when the hire complete, vehicle in this queue should be enqueue to relevant queue
+hiredQueue = VehicleQueue
+
+userLogin()
+

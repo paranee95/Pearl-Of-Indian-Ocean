@@ -1,0 +1,148 @@
+ul
+{
+    list-style-type: none;
+    margin: o;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to top right, #0066ff 0%, #ff99cc 100%);
+}
+
+li
+{
+    float: left;
+}
+
+li a{
+    display: block;
+    color: rgb(8, 8, 8);
+    text-align: center;
+    padding: 14px 10px;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+li a.active
+{
+    background: linear-gradient(to left, #ffff00 0%, #a5c1dd 100%);
+}
+
+li a:hover:not(active)
+{
+    background: linear-gradient(to bottom right, #00ff62 0%, #d9ff00 100%);
+}
+
+h1
+{
+    color: #1316c0;
+    letter-spacing: 4px;
+    word-spacing: 5px;
+    text-align: center;
+    margin-top: 10%;
+    font-size: 70px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+  p
+  {
+      text-align: center;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 30px;
+      color: #3399ff;
+  }
+  
+  footer{
+
+    padding: 25px;
+    background-color: #fefbd8;
+   
+    
+}
+h3 a{
+    text-decoration: none;
+}
+h3 a:hover{
+    text-decoration: underline;
+    color: rgb(230, 14, 14); 
+}
+
+.topics{
+    margin-left: 40px;
+    margin-top: -235px;
+    
+    
+
+}
+
+.fa {
+    display: block;
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
+
+  
+  .social-media{
+     
+      margin-right: 30px;
+      float: right;
+      margin-top: -25px;
+  }
+
+  .other-detail{
+      text-align: center;
+      margin-left: 200px;
+    }
+
+    .other-detail a{
+        text-decoration: none;
+        font-weight:bold;
+       
+    }
+
+    .other-detail a:hover{
+        text-decoration: underline;
+        color: rgb(230, 14, 14);
+    }

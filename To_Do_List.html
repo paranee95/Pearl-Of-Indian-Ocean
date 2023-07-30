@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="To_Do_List.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>webpage</title>
+</head>
+<body>
+    
+<ul>
+    <li><a href="miniproject.html" class="active">Home</a></li>
+    <li><a href="Aboutus.html">About Us</a></li>
+    <li><a href="To_Do_List.html">Add your favorite places</a></li>
+    <li><a href="gallary.html">where to go </a></li>
+    <li><a href="tourist.html">Tourism News</a></li>
+    <li><a href="contactus.html">Contact us</a></li>
+    </ul>
+  </ul>
+  
+  
+  <div id="app">
+    <div class="container">
+        <h1>Add your favorite places here</h1>
+        
+
+        <div v-if="!isEditing">
+            <input type="text" v-model="todo">
+            <input type="submit" value="add" @click="storeTodo">
+        </div>
+
+
+        <div v-else>
+            <input type="text" v-model="todo">
+            <input type="submit" value="update" @click="updateTodo">
+        </div>
+
+
+        <br>
+            <br>
+            <br>
+            <table >
+
+                <tr v-for="(todo, index) in todos">
+                  
+                    <td style="width: 70%; "> &nbsp;&nbsp;&nbsp;&nbsp;  {{ todo }}</td>
+                   
+                    <td style="width: 60%;">&nbsp;&nbsp;&nbsp; <button class="button button2" @click="editTodo(index, todo)">Edit</button>
+                         <button class="button button2" @click="deleteTodo(index)">Delete</button> &nbsp;&nbsp;&nbsp;
+                   </td>
+
+                </tr>  
+
+                </table>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  
+<div class ="footer">
+    <footer>
+        <div class="social-media">
+            <h2 >Social Media Coverages </h2>
+            <a href="https://www.facebook.com/profile.php?id=100010969082280" class="fa fa-facebook"></a>
+            <a href="https://youtube.com/channel/UC8bcMdtA_1TpK8eA5bub4dA" class="fa fa-youtube"></a>
+            <br>
+            <a href="http://www.instagram.com/paraneethara/" class="fa fa-instagram"></a>
+            
+            </div>
+            <br>
+
+        <div class = "other-detail">
+            <h2>Other sites</h2>
+           <a href="https://www.sltda.gov.lk/en">Sri lanaka Tourism Development Authority </a>
+           <br>
+           <br>
+           <a href="https://www.tourismmin.gov.lk/">Ministry Of Tourism</a>
+           <br>
+           <br>
+           <a href="https://www.srilankan.com/en_uk/lk">Sri Lanka Air Lines</a>
+           <br>
+           <br>
+           <a href="https://immigration.gov.lk/">Department Of Imigration and Imigration</a>
+           <br>
+           <br>
+           <a href="https://www.thasl.lk/">Tourist Hotels Association Of Sri Lanka</a>
+        </div>
+<br> <br> <br>
+        
+    <div class ="topics">
+       <h2>PROVINCIAL TOURISOM</h2>
+        <a href ="https://www.srilanka.travel/provincial-tourism">CLICK HERE TO VIEW PROVINCIAL WISE TOURISOM</a>
+        <h2>DISTRICT TOURISOM</h2>
+        <a href ="https://srilankatravelnotes.com/SrilankaDistricts.html">CLICK HERE TO VIEW DISTRICT WISE TOURISOM</a>
+    </div>
+
+    <hr>
+
+    <div  style="text-align: center ;">
+     &copy;2021 &nbsp;&nbsp;  Peral Of the Indian Ocean  &nbsp;&nbsp; All Rights Reserved.
+    </div>
+    </footer>
+    </div>
+
+    <script>
+new Vue({
+
+el: '#app',
+
+data:{
+    isEditing: false,
+    selectedIndex: null,
+    todo: '',
+    todos: []
+},
+
+methods: {
+    storeTodo() {
+        this.todos.push(this.todo)
+        this.todo=''
+    },
+
+    editTodo(index, todo) {
+        this.todo= todo
+        this.selectedIndex= index
+        this.isEditing= true
+    },
+
+    updateTodo() {
+        this.todos.splice(this.selectedIndex, 1, this.todo)
+        this.isEditing= false
+    },
+
+    deleteTodo(index) {
+        this.todos.splice(index, 1)
+    }
+}
+})
+</script>
+</body>
+</html>
